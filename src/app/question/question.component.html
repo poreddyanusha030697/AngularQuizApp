@@ -1,0 +1,70 @@
+<div class="container mt-3">
+    <div class="card">
+        <div class="d-flex justify-content-between p-3">
+            <div class="image">
+                <img src="https://img.icons8.com/color/96/000000/angularjs.png" alt="logo" width="90">
+
+            </div>
+            <div class="quiz-header">
+                <h4 style="font-family: cursive;">Angular and Typescript Quiz</h4>
+                <span style="font-style: italic;">Welcome {{user}}</span>
+
+            </div>
+
+        </div>
+
+        <ng-container *ngIf="!isQuizComplete">
+            <div class="d-flex justify-content-around py-3">
+                <div class="score">
+                    <h5>Score: {{score}}</h5>
+                </div>
+                <div class="question-remaining">
+                    <span style="font-style: italic;">Question {{currentQue + 1}} of {{queList.length}}</span>                
+                </div>
+                <div class="timer">
+                    <h5>{{count}}sec</h5>
+    
+                </div>
+            </div>
+    
+            <div class="question">
+                <div class="card"><h2> {{queList[currentQue]?.questionText}}</h2></div>
+               
+            </div>
+            <div class="option">
+                <ol *ngFor = "let option of queList[currentQue]?.options ">
+                    <li (click) = "answer(currentQue+1 , option)"><div appBgChange [iscorrect] = "option.correct" class="card">{{option.text}}</div></li>
+                    
+                </ol>
+            </div>
+    
+            <div class="d-flex justify-content-between">
+                <button class="btn" (click)="previousQuestion()" [disabled] = "currentQue==0" ><i class="fa text-primary fa-chevron-left fa-2x" aria-hidden="true"></i></button>
+                <button class="btn" (click)="refresh()"><i class="fa text-dark fa-refresh fa-2x" aria-hidden="true"></i></button>
+                <button class="btn" (click)="nextQuestion()" [disabled] ="currentQue + 1 == queList.length"><i class="fa text-primary fa-chevron-right fa-2x" aria-hidden="true"></i></button>
+            </div>
+        </ng-container>  
+
+
+        <ng-container *ngIf="isQuizComplete">
+            <div class="row d-flex justify-content-between" >
+                <img style="width:50%" class="img-fluid col-sm-12 mx-auto" background-color="white" src="assets/cel.png" alt="celbration">
+                <div class="result text-center col-md-6 col-sm-12">
+                    <h3>Congrats!!...<br> You completed the Quiz<br> Below is your Score</h3>
+                    <p>Total number of Questions:{{queList.length}} </p>
+                    <p>Number of Correct Answers: {{correctAns}}</p>
+                    <p>Number of InCorrect Answers:{{incorrectAns}} </p>
+                    <p>Total Score: {{score}} points</p>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center align-items-center">
+                <button routerLink = "/showanswer" type="button" class="btn btn-primary btn-lg">Show Answers</button>
+            </div>
+
+        </ng-container> 
+    
+
+    </div>
+    
+
+</div>
